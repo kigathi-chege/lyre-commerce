@@ -1,0 +1,24 @@
+{
+    "name": "lyre/commerce",
+    "description": "Lyre Commerce package for Laravel (E-commerce)",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Lyre\\Commerce\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "lyre/lyre": "^1.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lyre\\Commerce\\Providers\\LyreCommerceServiceProvider"
+            ]
+        }
+    }
+}
+
+
