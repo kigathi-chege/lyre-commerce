@@ -5,9 +5,10 @@ use Lyre\Commerce\Http\Controllers as Controllers;
 
 Route::prefix(config('commerce.route_prefix', 'api'))
     ->middleware([
+        'api',
         \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         // TODO: Kigathi - November 5 2025 - Move this to the Lyre Guest package
-        \App\Http\Middleware\EnsureGuestUser::class
+        \Lyre\Guest\Http\Middleware\EnsureGuestUser::class
     ])
     ->group(function () {
         Route::apiResources([
