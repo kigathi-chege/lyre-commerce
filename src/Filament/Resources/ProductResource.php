@@ -9,6 +9,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Lyre\Commerce\Filament\Resources\ProductResource\Pages;
 use Lyre\Commerce\Filament\Resources\ProductResource\RelationManagers;
+use Lyre\Facet\Filament\RelationManagers\FacetValuesRelationManager;
 use Lyre\Commerce\Models\Product;
 use Lyre\File\Filament\Forms\Components\SelectFromGallery;
 
@@ -53,6 +54,7 @@ class ProductResource extends Resource
             Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
             Tables\Columns\IconColumn::make('saleable')->boolean(),
             Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
+            Tables\Columns\TextColumn::make('updated_at')->dateTime()->sortable(),
         ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -69,6 +71,7 @@ class ProductResource extends Resource
     {
         return [
             RelationManagers\ProductVariantsRelationManager::class,
+            FacetValuesRelationManager::class,
         ];
     }
 

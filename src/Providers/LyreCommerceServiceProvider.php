@@ -32,7 +32,7 @@ class LyreCommerceServiceProvider extends ServiceProvider
         ], 'lyre-commerce-config');
 
         $this->publishes([
-            __DIR__ . '/../database/migrations' => database_path('migrations'),
+            __DIR__ . '/../Database/migrations' => database_path('migrations'),
         ], 'lyre-commerce-migrations');
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
