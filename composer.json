@@ -17,7 +17,7 @@
   "version": "1.0.0",
   "autoload": {
     "psr-4": {
-      "Lyre\\Commerce\\": "src/",
+      "Lyre\\Commerce\\": "src/"
     }
   },
   "authors": [
