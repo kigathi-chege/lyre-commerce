@@ -3,7 +3,7 @@
 namespace Lyre\Commerce\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -14,11 +14,15 @@ class ProductVariantPriceResource extends Resource
 {
     protected static ?string $model = ProductVariantPrice::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
-    protected static ?string $navigationGroup = 'Commerce';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-currency-dollar';
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Commerce';
+    }
+
     protected static ?int $navigationSort = 6;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form->schema([
             Forms\Components\Select::make('user_product_variant_id')
@@ -45,12 +49,12 @@ class ProductVariantPriceResource extends Resource
         ])
         ->filters([])
         ->actions([
-            Tables\Actions\EditAction::make(),
-            Tables\Actions\DeleteAction::make(),
+            \Filament\Actions\EditAction::make(),
+            \Filament\Actions\DeleteAction::make(),
         ])
         ->bulkActions([
-            Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make(),
+            \Filament\Actions\BulkActionGroup::make([
+                \Filament\Actions\DeleteBulkAction::make(),
             ]),
         ]);
     }

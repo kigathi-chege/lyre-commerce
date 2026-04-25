@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('coupons', function (Blueprint $table) {
-            basic_fields($table, 'coupons');
+        $prefix = config('lyre.table_prefix');
+        $couponsTable = $prefix . 'coupons';
+        $couponUsagesTable = $prefix . 'coupon_usages';
+
+        Schema::create($couponsTable, function (Blueprint $table) use ($couponsTable) {
+            basic_fields($table, $couponsTable);
             $table->string('code')->unique();
             $table->decimal('discount', 12, 2);
             $table->string('discount_type'); // percent|fixed
@@ -21,9 +25,9 @@ return new class extends Migration {
             $table->json('applies_to')->nullable();
         });
 
-        Schema::create('coupon_usages', function (Blueprint $table) {
-            basic_fields($table, 'coupon_usages');
-            $table->foreignId('coupon_id')->constrained('coupons')->cascadeOnDelete();
+        Schema::create($couponUsagesTable, function (Blueprint $table) use ($couponUsagesTable, $couponsTable) {
+            basic_fields($table, $couponUsagesTable);
+            $table->foreignId('coupon_id')->constrained($couponsTable)->cascadeOnDelete();
             $table->foreignId('user_id')->constrained((new (get_user_model()))->getTable());
             $table->decimal('amount_saved', 12, 2)->default(0);
             $table->timestamp('used_at')->nullable();
@@ -35,9 +39,11 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('coupon_usages');
-        Schema::dropIfExists('coupons');
+        $prefix = config('lyre.table_prefix');
+        $couponsTable = $prefix . 'coupons';
+        $couponUsagesTable = $prefix . 'coupon_usages';
+        Schema::dropIfExists($couponUsagesTable);
+        Schema::dropIfExists($couponsTable);
     }
 };
-
 

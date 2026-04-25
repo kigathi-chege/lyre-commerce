@@ -7,10 +7,13 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('shipping_addresses', function (Blueprint $table) {
-            basic_fields($table, 'shipping_addresses');
+        $prefix = config('lyre.table_prefix');
+        $tableName = $prefix . 'shipping_addresses';
+
+        Schema::create($tableName, function (Blueprint $table) use ($prefix, $tableName) {
+            basic_fields($table, $tableName);
             $table->foreignId('user_id')->constrained((new (get_user_model()))->getTable());
-            $table->foreignId('location_id')->nullable()->constrained('locations');
+            $table->foreignId('location_id')->nullable()->constrained($prefix . 'locations');
             $table->string('delivery_method')->nullable();
             $table->string('address_line_1')->nullable();
             $table->string('address_line_2')->nullable();
@@ -26,8 +29,9 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('shipping_addresses');
+        $prefix = config('lyre.table_prefix');
+        $tableName = $prefix . 'shipping_addresses';
+        Schema::dropIfExists($tableName);
     }
 };
-
 

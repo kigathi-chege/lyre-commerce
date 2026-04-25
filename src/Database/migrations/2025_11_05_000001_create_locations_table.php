@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('locations', function (Blueprint $table) {
-            basic_fields($table, 'locations');
+        $prefix = config('lyre.table_prefix');
+        $tableName = $prefix . 'locations';
+
+        Schema::create($tableName, function (Blueprint $table) use ($tableName) {
+            basic_fields($table, $tableName);
             $table->string('name');
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
@@ -19,8 +22,9 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        $prefix = config('lyre.table_prefix');
+        $tableName = $prefix . 'locations';
+        Schema::dropIfExists($tableName);
     }
 };
-
 

@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
-            basic_fields($table, 'products');
+        $prefix = config('lyre.table_prefix');
+        $productsTable = $prefix . 'products';
+        $variantsTable = $prefix . 'product_variants';
+
+        Schema::create($productsTable, function (Blueprint $table) use ($productsTable) {
+            basic_fields($table, $productsTable);
             $table->string('name');
             $table->boolean('saleable')->default(true);
             $table->string('hscode')->nullable();
@@ -17,9 +21,9 @@ return new class extends Migration {
             $table->string('status')->nullable();
         });
 
-        Schema::create('product_variants', function (Blueprint $table) {
-            basic_fields($table, 'product_variants');
-            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+        Schema::create($variantsTable, function (Blueprint $table) use ($productsTable, $variantsTable) {
+            basic_fields($table, $variantsTable);
+            $table->foreignId('product_id')->constrained($productsTable)->cascadeOnDelete();
             $table->string('name');
             $table->boolean('enabled')->default(true);
             $table->json('attributes')->nullable();
@@ -29,9 +33,11 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('product_variants');
-        Schema::dropIfExists('products');
+        $prefix = config('lyre.table_prefix');
+        $productsTable = $prefix . 'products';
+        $variantsTable = $prefix . 'product_variants';
+        Schema::dropIfExists($variantsTable);
+        Schema::dropIfExists($productsTable);
     }
 };
-
 
