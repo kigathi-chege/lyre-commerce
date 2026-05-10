@@ -9,13 +9,15 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Lyre\Commerce\Filament\Resources\ProductVariantPriceResource\Pages;
 use Lyre\Commerce\Models\ProductVariantPrice;
+use UnitEnum;
 
 class ProductVariantPriceResource extends Resource
 {
     protected static ?string $model = ProductVariantPrice::class;
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-currency-dollar';
-    public static function getNavigationGroup(): ?string
+
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Commerce';
     }
@@ -47,16 +49,16 @@ class ProductVariantPriceResource extends Resource
             Tables\Columns\TextColumn::make('currency')->sortable(),
             Tables\Columns\IconColumn::make('tax_included')->boolean(),
         ])
-        ->filters([])
-        ->actions([
-            \Filament\Actions\EditAction::make(),
-            \Filament\Actions\DeleteAction::make(),
-        ])
-        ->bulkActions([
-            \Filament\Actions\BulkActionGroup::make([
-                \Filament\Actions\DeleteBulkAction::make(),
-            ]),
-        ]);
+            ->filters([])
+            ->actions([
+                \Filament\Actions\EditAction::make(),
+                \Filament\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getPages(): array
@@ -68,4 +70,3 @@ class ProductVariantPriceResource extends Resource
         ];
     }
 }
-

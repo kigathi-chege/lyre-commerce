@@ -12,13 +12,15 @@ use Lyre\Commerce\Filament\Resources\ProductResource\RelationManagers;
 use Lyre\Facet\Filament\RelationManagers\FacetValuesRelationManager;
 use Lyre\Commerce\Models\Product;
 use Lyre\File\Filament\Forms\Components\SelectFromGallery;
+use UnitEnum;
 
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-cube';
-    public static function getNavigationGroup(): ?string
+
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Commerce';
     }

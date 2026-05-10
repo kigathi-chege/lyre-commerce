@@ -10,13 +10,16 @@ use Filament\Tables\Table;
 use Lyre\Commerce\Filament\Resources\CouponResource\Pages;
 use Lyre\Commerce\Filament\Resources\CouponResource\RelationManagers;
 use Lyre\Commerce\Models\Coupon;
+use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class CouponResource extends Resource
 {
     protected static ?string $model = Coupon::class;
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-ticket';
-    public static function getNavigationGroup(): ?string
+
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Commerce';
     }
@@ -53,16 +56,16 @@ class CouponResource extends Resource
             Tables\Columns\TextColumn::make('used_count')->numeric()->sortable(),
             Tables\Columns\TextColumn::make('usage_limit')->numeric(),
         ])
-        ->filters([])
-        ->actions([
-            \Filament\Actions\EditAction::make(),
-            \Filament\Actions\DeleteAction::make(),
-        ])
-        ->bulkActions([
-            \Filament\Actions\BulkActionGroup::make([
-                \Filament\Actions\DeleteBulkAction::make(),
-            ]),
-        ]);
+            ->filters([])
+            ->actions([
+                \Filament\Actions\EditAction::make(),
+                \Filament\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getRelations(): array
@@ -81,4 +84,3 @@ class CouponResource extends Resource
         ];
     }
 }
-

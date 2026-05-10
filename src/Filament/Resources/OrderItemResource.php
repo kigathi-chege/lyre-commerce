@@ -9,13 +9,15 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Lyre\Commerce\Filament\Resources\OrderItemResource\Pages;
 use Lyre\Commerce\Models\OrderItem;
+use UnitEnum;
 
 class OrderItemResource extends Resource
 {
     protected static ?string $model = OrderItem::class;
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-list-bullet';
-    public static function getNavigationGroup(): ?string
+
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Commerce';
     }
@@ -56,16 +58,16 @@ class OrderItemResource extends Resource
             Tables\Columns\TextColumn::make('unit_price')->money('currency')->sortable(),
             Tables\Columns\TextColumn::make('subtotal')->money('currency')->sortable(),
         ])
-        ->filters([])
-        ->actions([
-            \Filament\Actions\EditAction::make(),
-            \Filament\Actions\DeleteAction::make(),
-        ])
-        ->bulkActions([
-            \Filament\Actions\BulkActionGroup::make([
-                \Filament\Actions\DeleteBulkAction::make(),
-            ]),
-        ]);
+            ->filters([])
+            ->actions([
+                \Filament\Actions\EditAction::make(),
+                \Filament\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getPages(): array
@@ -77,4 +79,3 @@ class OrderItemResource extends Resource
         ];
     }
 }
-

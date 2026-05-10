@@ -10,13 +10,15 @@ use Filament\Tables\Table;
 use Lyre\Commerce\Filament\Resources\OrderResource\Pages;
 use Lyre\Commerce\Filament\Resources\OrderResource\RelationManagers;
 use Lyre\Commerce\Models\Order;
+use UnitEnum;
 
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-shopping-cart';
-    public static function getNavigationGroup(): ?string
+
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Commerce';
     }

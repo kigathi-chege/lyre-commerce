@@ -9,13 +9,15 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Lyre\Commerce\Filament\Resources\ProductVariantResource\Pages;
 use Lyre\Commerce\Models\ProductVariant;
+use UnitEnum;
 
 class ProductVariantResource extends Resource
 {
     protected static ?string $model = ProductVariant::class;
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-cube';
-    public static function getNavigationGroup(): ?string
+
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Commerce';
     }
@@ -45,16 +47,16 @@ class ProductVariantResource extends Resource
             Tables\Columns\IconColumn::make('enabled')->boolean(),
             Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
         ])
-        ->filters([])
-        ->actions([
-            \Filament\Actions\EditAction::make(),
-            \Filament\Actions\DeleteAction::make(),
-        ])
-        ->bulkActions([
-            \Filament\Actions\BulkActionGroup::make([
-                \Filament\Actions\DeleteBulkAction::make(),
-            ]),
-        ]);
+            ->filters([])
+            ->actions([
+                \Filament\Actions\EditAction::make(),
+                \Filament\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getPages(): array
@@ -66,4 +68,3 @@ class ProductVariantResource extends Resource
         ];
     }
 }
-

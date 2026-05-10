@@ -9,13 +9,15 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Lyre\Commerce\Filament\Resources\ShippingAddressResource\Pages;
 use Lyre\Commerce\Models\ShippingAddress;
+use UnitEnum;
 
 class ShippingAddressResource extends Resource
 {
     protected static ?string $model = ShippingAddress::class;
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-home';
-    public static function getNavigationGroup(): ?string
+
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Commerce';
     }
@@ -43,15 +45,15 @@ class ShippingAddressResource extends Resource
             Tables\Columns\TextColumn::make('address_line_1')->limit(30),
             Tables\Columns\IconColumn::make('is_default')->boolean(),
         ])
-        ->actions([
-            \Filament\Actions\EditAction::make(),
-            \Filament\Actions\DeleteAction::make(),
-        ])
-        ->bulkActions([
-            \Filament\Actions\BulkActionGroup::make([
-                \Filament\Actions\DeleteBulkAction::make(),
-            ]),
-        ]);
+            ->actions([
+                \Filament\Actions\EditAction::make(),
+                \Filament\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getPages(): array
@@ -63,5 +65,3 @@ class ShippingAddressResource extends Resource
         ];
     }
 }
-
-

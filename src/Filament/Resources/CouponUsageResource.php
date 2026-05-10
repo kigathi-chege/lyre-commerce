@@ -9,13 +9,15 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Lyre\Commerce\Filament\Resources\CouponUsageResource\Pages;
 use Lyre\Commerce\Models\CouponUsage;
+use UnitEnum;
 
 class CouponUsageResource extends Resource
 {
     protected static ?string $model = CouponUsage::class;
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-chart-bar';
-    public static function getNavigationGroup(): ?string
+
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Commerce';
     }
@@ -53,16 +55,16 @@ class CouponUsageResource extends Resource
             Tables\Columns\TextColumn::make('amount_saved')->money('USD')->sortable(),
             Tables\Columns\TextColumn::make('used_at')->dateTime()->sortable(),
         ])
-        ->filters([])
-        ->actions([
-            \Filament\Actions\EditAction::make(),
-            \Filament\Actions\DeleteAction::make(),
-        ])
-        ->bulkActions([
-            \Filament\Actions\BulkActionGroup::make([
-                \Filament\Actions\DeleteBulkAction::make(),
-            ]),
-        ]);
+            ->filters([])
+            ->actions([
+                \Filament\Actions\EditAction::make(),
+                \Filament\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getPages(): array
@@ -74,4 +76,3 @@ class CouponUsageResource extends Resource
         ];
     }
 }
-
