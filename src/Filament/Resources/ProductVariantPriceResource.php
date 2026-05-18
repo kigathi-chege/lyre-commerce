@@ -50,11 +50,11 @@ class ProductVariantPriceResource extends Resource
             Tables\Columns\IconColumn::make('tax_included')->boolean(),
         ])
             ->filters([])
-            ->actions([
+            ->recordActions([
                 \Filament\Actions\EditAction::make(),
                 \Filament\Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 \Filament\Actions\BulkActionGroup::make([
                     \Filament\Actions\DeleteBulkAction::make(),
                 ]),

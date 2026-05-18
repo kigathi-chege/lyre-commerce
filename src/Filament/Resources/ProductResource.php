@@ -3,8 +3,9 @@
 namespace Lyre\Commerce\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Lyre\Commerce\Filament\Resources\ProductResource\Pages;
@@ -39,7 +40,7 @@ class ProductResource extends Resource
                 ->label('Product Images')
                 ->multiple(),
             Forms\Components\Toggle::make('saleable'),
-            Forms\Components\Section::make('HS Code Information')
+            Section::make('HS Code Information')
                 ->schema([
                     Forms\Components\TextInput::make('hscode'),
                     Forms\Components\TextInput::make('hstype'),
@@ -62,11 +63,11 @@ class ProductResource extends Resource
             Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
             Tables\Columns\TextColumn::make('updated_at')->dateTime()->sortable(),
         ])
-            ->actions([
+            ->recordActions([
                 \Filament\Actions\EditAction::make(),
                 \Filament\Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 \Filament\Actions\BulkActionGroup::make([
                     \Filament\Actions\DeleteBulkAction::make(),
                 ]),

@@ -56,11 +56,11 @@ class CouponUsageResource extends Resource
             Tables\Columns\TextColumn::make('used_at')->dateTime()->sortable(),
         ])
             ->filters([])
-            ->actions([
+            ->recordActions([
                 \Filament\Actions\EditAction::make(),
                 \Filament\Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 \Filament\Actions\BulkActionGroup::make([
                     \Filament\Actions\DeleteBulkAction::make(),
                 ]),

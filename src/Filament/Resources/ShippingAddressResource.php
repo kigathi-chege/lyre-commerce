@@ -45,11 +45,11 @@ class ShippingAddressResource extends Resource
             Tables\Columns\TextColumn::make('address_line_1')->limit(30),
             Tables\Columns\IconColumn::make('is_default')->boolean(),
         ])
-            ->actions([
+            ->recordActions([
                 \Filament\Actions\EditAction::make(),
                 \Filament\Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 \Filament\Actions\BulkActionGroup::make([
                     \Filament\Actions\DeleteBulkAction::make(),
                 ]),
